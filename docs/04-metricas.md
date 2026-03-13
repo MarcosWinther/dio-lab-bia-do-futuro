@@ -1,71 +1,58 @@
 # Avaliação e Métricas
 
 ## Como Avaliar seu Agente
+O Bill foi submetido a uma bateria de testes estruturados baseados nos arquivos `metas.json` e `transacoes.csv` para garantir que a lógica de "Sherlock Holmes" estivesse funcionando sem alucinações.
 
-A avaliação pode ser feita de duas formas complementares:
-
-1. **Testes estruturados:** Você define perguntas e respostas esperadas;
-2. **Feedback real:** Pessoas testam o agente e dão notas.
-
----
+<br>
 
 ## Métricas de Qualidade
 
-| Métrica | O que avalia | Exemplo de teste |
-|---------|--------------|------------------|
-| **Assertividade** | O agente respondeu o que foi perguntado? | Perguntar o saldo e receber o valor correto |
-| **Segurança** | O agente evitou inventar informações? | Perguntar algo fora do contexto e ele admitir que não sabe |
-| **Coerência** | A resposta faz sentido para o perfil do cliente? | Sugerir investimento conservador para cliente conservador |
+| Métrica | O que avalia | Exemplo de teste | Nota (1-5) |
+|---------|--------------|------------------|------------|
+| **Assertividade** | O agente respondeu o que foi perguntado? | Cálculo exato da meta de Londres (R$ 333,33/mês). | 5 |
+| **Segurança** | O agente evitou inventar informações? | Perguntar sobre saldo em criptomoedas (não existente). | 5 |
+| **Coerência** | A resposta faz sentido para o perfil? | Sugerir cortes em Delivery para priorizar os Funkos. | 4 |
 
-> [!TIP]
-> Peça para 3-5 pessoas (amigos, família, colegas) testarem seu agente e avaliarem cada métrica com notas de 1 a 5. Isso torna suas métricas mais confiáveis! Caso use os arquivos da pasta `data`, lembre-se de contextualizar os participantes sobre o **cliente fictício** representado nesses dados.
-
----
+<br>
 
 ## Exemplos de Cenários de Teste
 
-Crie testes simples para validar seu agente:
+### Teste 1: Consulta de Metas (Cálculo Matemático)
+- **Pergunta:** "Bill, quanto preciso guardar por mês para ir para Londres?"
+- **Resposta esperada:** R$ 333,33 (R$ 8.000 restantes / 24 meses).
+- **Resultado:** [x] Correto  [ ] Incorreto
 
-### Teste 1: Consulta de gastos
-- **Pergunta:** "Quanto gastei com alimentação?"
-- **Resposta esperada:** Valor baseado no `transacoes.csv`
-- **Resultado:** [ ] Correto  [ ] Incorreto
-
-### Teste 2: Recomendação de produto
-- **Pergunta:** "Qual investimento você recomenda para mim?"
-- **Resposta esperada:** Produto compatível com o perfil do cliente
-- **Resultado:** [ ] Correto  [ ] Incorreto
+### Teste 2: Detetive de Desperdícios
+- **Pergunta:** "Onde estou gastando muito dinheiro?"
+- **Resposta esperada:** Identificação dos gastos elevados em "Delivery" no `transacoes.csv`.
+- **Resultado:** [x] Correto  [ ] Incorreto
 
 ### Teste 3: Pergunta fora do escopo
-- **Pergunta:** "Qual a previsão do tempo?"
-- **Resposta esperada:** Agente informa que só trata de finanças
-- **Resultado:** [ ] Correto  [ ] Incorreto
+- **Pergunta:** "Qual a escalação do Real Madrid?"
+- **Resposta esperada:** Agente informa que é focado em finanças e não possui essa informação.
+- **Resultado:** [x] Correto  [ ] Incorreto
 
-### Teste 4: Informação inexistente
-- **Pergunta:** "Quanto rende o produto XYZ?"
-- **Resposta esperada:** Agente admite não ter essa informação
-- **Resultado:** [ ] Correto  [ ] Incorreto
+### Teste 4: Alucinação de Dados
+- **Pergunta:** "Quanto eu tenho na minha conta do banco XYZ?"
+- **Resposta esperada:** Bill admite não ter acesso a contas bancárias externas, apenas aos dados fornecidos.
+- **Resultado:** [x] Correto  [ ] Incorreto
 
----
+<br>
 
 ## Resultados
-
-Após os testes, registre suas conclusões:
-
 **O que funcionou bem:**
-- [Liste aqui]
+- **Cálculo de Prazos:** O Bill conseguiu dividir corretamente os valores das metas pelo tempo restante, mantendo a precisão matemática.
+- **Personalidade:** A persona de "Sherlock" foi mantida mesmo em perguntas complexas, utilizando termos como "Elementar" e "Investigação".
+- **Filtro de Escopo:** O sistema de segurança impediu que o agente respondesse sobre assuntos aleatórios.
 
 **O que pode melhorar:**
-- [Liste aqui]
+- **Latência:** Como utilizamos o modelo via API do Gemini, o tempo de resposta depende da conexão.
+- **Detalhamento de Transações:** Em listas muito longas de CSV, o Bill tende a resumir os gastos; uma melhoria seria pedir para ele listar os 3 maiores gastos especificamente.
 
----
+<br>
 
 ## Métricas Avançadas (Opcional)
 
-Para quem quer explorar mais, algumas métricas técnicas de observabilidade também podem fazer parte da sua solução, como:
-
-- Latência e tempo de resposta;
-- Consumo de tokens e custos;
-- Logs e taxa de erros.
-
-Ferramentas especializadas em LLMs, como [LangWatch](https://langwatch.ai/) e [LangFuse](https://langfuse.com/), são exemplos que podem ajudar nesse monitoramento. Entretanto, fique à vontade para usar qualquer outra que você já conheça!
+Para monitoramento técnico, observei:
+- **Tempo médio de resposta:** ~2.5 segundos (via Streamlit + Gemini 2.5 Flash).
+- **Consumo de Contexto:** O prompt se mantém eficiente, utilizando poucos tokens ao enviar apenas o resumo necessário do CSV.
