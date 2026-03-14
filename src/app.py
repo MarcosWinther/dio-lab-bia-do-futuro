@@ -1,85 +1,52 @@
 import streamlit as st
 import pandas as pd
 import json
-import google.generativeai as genai
 import os
-from dotenv import load_dotenv
+from config import setup_env
+from agente import get_system_prompt, iniciar_chat
 
-# --- CARREGAR VARIÁVEIS DE AMBIENTE ---
-load_dotenv() # Carrega o arquivo .env
-api_key = os.getenv("GOOGLE_API_KEY")
+# Configuração e API
+genai = setup_env()
 
-if not api_key:
-    st.error("Erro: Variável GOOGLE_API_KEY não encontrada. Verifique o arquivo .env")
-    st.stop()
-
-genai.configure(api_key=api_key)
-
-# --- CONFIGURAÇÃO DA PÁGINA ---
-st.set_page_config(page_title="Bill: O Sherlock das Finanças", page_icon="🕵️‍♂️")
-
-# --- CARREGAMENTO DE DADOS ---
+# Carregamento de Dados
 def load_data():
-    # Caminho ajustado pois o app.py está em /src
-    with open('../data/metas.json', 'r', encoding='utf-8') as f:
+    base_path = os.path.dirname(__file__)
+    with open(os.path.join(base_path, '../data/metas.json'), 'r', encoding='utf-8') as f:
         metas = json.load(f)
-    transacoes = pd.read_csv('../data/transacoes.csv', encoding='utf-8')
+    transacoes = pd.read_csv(os.path.join(base_path, '../data/transacoes.csv'))
     return metas, transacoes
 
-try:
-    metas, transacoes = load_data()
-except FileNotFoundError:
-    st.error("Erro: Certifique-se de que a pasta 'data' está no nível correto.")
+metas, transacoes = load_data()
 
-# --- SYSTEM PROMPT ---
-SYSTEM_PROMPT = f"""
-Você é o Bill, um mentor financeiro inteligente e motivador, estilo Sherlock Holmes.
-Sua missão: Identificar desperdícios e ajudar o usuário a bater metas.
-
-DADOS REAIS DO USUÁRIO:
-- Metas: {json.dumps(metas)}
-- Resumo de Transações: {transacoes.to_string()}
-
-REGRAS:
-1. Sempre use os dados acima para responder.
-2. Calcule prazos: Londres em 24 meses, Funkos em 4 meses.
-3. Traduza economias em "tempo ganho" na meta.
-4. Use linguagem simples e encorajadora.
-"""
-
-# --- INTERFACE ---
+# Interface Streamlit
+st.set_page_config(page_title="Bill: Sherlock Financeiro", page_icon="🕵️‍♂️")
 st.title("🕵️‍♂️ Bill: O Sherlock das Finanças")
 
-# Sidebar com progresso real
-st.sidebar.header("🎯 Seus Objetivos")
+# Sidebar
+st.sidebar.header("🎯 Metas")
 for m in metas:
-    prog = m['valor_poupado'] / m['valor_almejado']
     st.sidebar.write(f"**{m['objetivo']}**")
-    st.sidebar.progress(prog)
+    st.sidebar.progress(m['valor_poupado'] / m['valor_almejado'])
 
-# --- CHAT COM GEMINI ---
+# Gerenciamento do Chat
 if "chat_session" not in st.session_state:
     model = genai.GenerativeModel('gemini-2.5-flash')
-    st.session_state.chat_session = model.start_chat(history=[])
-    # Enviando o System Prompt como primeira instrução "invisível"
-    st.session_state.chat_session.send_message(SYSTEM_PROMPT)
+    system_prompt = get_system_prompt(metas, transacoes)
+    st.session_state.chat_session = iniciar_chat(model, system_prompt)
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# Exibir histórico
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# Input do usuário
 if prompt := st.chat_input("Pergunte ao Bill..."):
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
 
     with st.chat_message("assistant"):
-        # Chamada real para a API do Google
         response = st.session_state.chat_session.send_message(prompt)
         st.markdown(response.text)
         st.session_state.messages.append({"role": "assistant", "content": response.text})
