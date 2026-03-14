@@ -7,8 +7,6 @@ O Bill utiliza os dados estruturados para realizar cálculos de prazos e identif
 |---------|---------|---------------------|
 | `metas.json` | JSON | Define os objetivos (Londres/Funkos), valores almejados e prazos. |
 | `transacoes.csv` | CSV | Base para o motor de detecção de gastos excessivos e desperdícios. |
-| `perfil_investidor.json` | JSON | Utilizado para ajustar o tom das recomendações de economia. |
-| `historico_atendimento.csv` | CSV | (Opcional) Mantém o contexto de conversas anteriores para continuidade. |
 
 <br>
 
