@@ -1,149 +1,122 @@
-# 🤖 Agente Financeiro Inteligente com IA Generativa
+# 🕵️‍♂️ Bill: O Sherlock das Finanças
 
-## Contexto
+> **"Elementar, meu caro usuário: economizar é o primeiro passo para realizar."**
 
-Os assistentes virtuais no setor financeiro estão evoluindo de simples chatbots reativos para **agentes inteligentes e proativos**. Neste desafio, você vai idealizar e prototipar um agente financeiro que utiliza IA Generativa para:
+[![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Google Gemini](https://img.shields.io/badge/Google%20Gemini-8E75B2?style=for-the-badge&logo=googlegemini&logoColor=white)](https://aistudio.google.com/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=Streamlit&logoColor=white)](https://streamlit.io/)
+[![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white)](https://pandas.pydata.org/)
+[![Dotenv](https://img.shields.io/badge/.env-ECD53F?style=for-the-badge&logo=dotenv&logoColor=black)](https://pypi.org/project/python-dotenv/)
 
-- **Antecipar necessidades** ao invés de apenas responder perguntas
-- **Personalizar** sugestões com base no contexto de cada cliente
-- **Cocriar soluções** financeiras de forma consultiva
-- **Garantir segurança** e confiabilidade nas respostas (anti-alucinação)
+O **Bill** é um mentor financeiro inteligente desenvolvido para o desafio de projeto da DIO. Ele atua como um "detetive de desperdícios", analisando transações reais e correlacionando-as diretamente com a velocidade de conquista dos seus sonhos.
 
-> [!TIP]
-> Na pasta [`examples/`](./examples/) você encontra referências de implementação para cada etapa deste desafio.
+<br>
 
----
+## 🎯 Objetivo do Projeto
 
-## O Que Você Deve Entregar
+O Bill resolve a "cegueira do consumo" através de uma persona investigativa. O objetivo é transformar dados frios em insights motivadores:
+1.  **Investigar:** Varre o histórico de `transacoes.csv` em busca de padrões de gastos (Delivery, Lazer, Assinaturas).
+2.  **Correlacionar:** Conecta esses gastos com objetivos do `metas.json` (ex: Viagem para Londres ou Coleção de Funkos).
+3.  **Quantificar:** Traduz a economia financeira em **tempo ganho**: *"Se você reduzir o delivery este mês, sua viagem acontece 20 dias antes"*.
 
-### 1. Documentação do Agente
+<br>
 
-Defina **o que** seu agente faz e **como** ele funciona:
+## 🎓 Contexto Acadêmico
 
-- **Caso de Uso:** Qual problema financeiro ele resolve? (ex: consultoria de investimentos, planejamento de metas, alertas de gastos)
-- **Persona e Tom de Voz:** Como o agente se comporta e se comunica?
-- **Arquitetura:** Fluxo de dados e integração com a base de conhecimento
-- **Segurança:** Como evitar alucinações e garantir respostas confiáveis?
+Este repositório é o resultado do projeto prático desenvolvido para o curso:
+* **Curso:** *Desafio de Projeto Final — Construa seu Assistente Virtual com IA Generativa*
+* **Instrutor:** [Venilton Falvo Jr](https://www.linkedin.com/in/falvojr/)
+* **Plataforma:** [DIO (Digital Innovation One)](https://www.dio.me/)
+* **Bootcamp Bradesco - GenAI & Dados**
 
-📄 **Template:** [`docs/01-documentacao-agente.md`](./docs/01-documentacao-agente.md)
+O desafio proposto pelo instrutor foi explorar as capacidades do **Google NotebookLM** para organizar conhecimentos complexos e gerar insights a partir de fontes diversas.
 
----
+<br>
 
-### 2. Base de Conhecimento
+## 🛠️ Ferramentas e Tecnologias
 
-Utilize os **dados mockados** disponíveis na pasta [`data/`](./data/) para alimentar seu agente:
+O projeto utiliza uma arquitetura modular moderna para garantir segurança e performance:
 
-| Arquivo | Formato | Descrição |
-|---------|---------|-----------|
-| `transacoes.csv` | CSV | Histórico de transações do cliente |
-| `historico_atendimento.csv` | CSV | Histórico de atendimentos anteriores |
-| `perfil_investidor.json` | JSON | Perfil e preferências do cliente |
-| `produtos_financeiros.json` | JSON | Produtos e serviços disponíveis |
+* **Python:** Linguagem base para processamento e lógica.
+* **Google Gemini API:** O "cérebro" do agente, responsável pelo raciocínio e linguagem natural.
+* **Streamlit:** Interface de usuário fluida e interativa.
+* **Pandas:** Manipulação e análise eficiente da base de conhecimento (CSV).
+* **Python-dotenv:** Gestão segura de credenciais e variáveis de ambiente.
 
-Você pode adaptar ou expandir esses dados conforme seu caso de uso.
+<br>
 
-📄 **Template:** [`docs/02-base-conhecimento.md`](./docs/02-base-conhecimento.md)
+## 📂 Estrutura do Repositório
 
----
-
-### 3. Prompts do Agente
-
-Documente os prompts que definem o comportamento do seu agente:
-
-- **System Prompt:** Instruções gerais de comportamento e restrições
-- **Exemplos de Interação:** Cenários de uso com entrada e saída esperada
-- **Tratamento de Edge Cases:** Como o agente lida com situações limite
-
-📄 **Template:** [`docs/03-prompts.md`](./docs/03-prompts.md)
-
----
-
-### 4. Aplicação Funcional
-
-Desenvolva um **protótipo funcional** do seu agente:
-
-- Chatbot interativo (sugestão: Streamlit, Gradio ou similar)
-- Integração com LLM (via API ou modelo local)
-- Conexão com a base de conhecimento
-
-📁 **Pasta:** [`src/`](./src/)
-
----
-
-### 5. Avaliação e Métricas
-
-Descreva como você avalia a qualidade do seu agente:
-
-**Métricas Sugeridas:**
-- Precisão/assertividade das respostas
-- Taxa de respostas seguras (sem alucinações)
-- Coerência com o perfil do cliente
-
-📄 **Template:** [`docs/04-metricas.md`](./docs/04-metricas.md)
-
----
-
-### 6. Pitch
-
-Grave um **pitch de 3 minutos** (estilo elevador) apresentando:
-
-- Qual problema seu agente resolve?
-- Como ele funciona na prática?
-- Por que essa solução é inovadora?
-
-📄 **Template:** [`docs/05-pitch.md`](./docs/05-pitch.md)
-
----
-
-## Ferramentas Sugeridas
-
-Todas as ferramentas abaixo possuem versões gratuitas:
-
-| Categoria | Ferramentas |
-|-----------|-------------|
-| **LLMs** | [ChatGPT](https://chat.openai.com/), [Copilot](https://copilot.microsoft.com/), [Gemini](https://gemini.google.com/), [Claude](https://claude.ai/), [Ollama](https://ollama.ai/) |
-| **Desenvolvimento** | [Streamlit](https://streamlit.io/), [Gradio](https://www.gradio.app/), [Google Colab](https://colab.research.google.com/) |
-| **Orquestração** | [LangChain](https://www.langchain.com/), [LangFlow](https://www.langflow.org/), [CrewAI](https://www.crewai.com/) |
-| **Diagramas** | [Mermaid](https://mermaid.js.org/), [Draw.io](https://app.diagrams.net/), [Excalidraw](https://excalidraw.com/) |
-
----
-
-## Estrutura do Repositório
-
-```
-📁 lab-agente-financeiro/
-│
-├── 📄 README.md
-│
-├── 📁 data/                          # Dados mockados para o agente
-│   ├── historico_atendimento.csv     # Histórico de atendimentos (CSV)
-│   ├── perfil_investidor.json        # Perfil do cliente (JSON)
-│   ├── produtos_financeiros.json     # Produtos disponíveis (JSON)
-│   └── transacoes.csv                # Histórico de transações (CSV)
-│
-├── 📁 docs/                          # Documentação do projeto
-│   ├── 01-documentacao-agente.md     # Caso de uso e arquitetura
-│   ├── 02-base-conhecimento.md       # Estratégia de dados
-│   ├── 03-prompts.md                 # Engenharia de prompts
-│   ├── 04-metricas.md                # Avaliação e métricas
-│   └── 05-pitch.md                   # Roteiro do pitch
-│
-├── 📁 src/                           # Código da aplicação
-│   └── app.py                        # (exemplo de estrutura)
-│
-├── 📁 assets/                        # Imagens e diagramas
-│   └── ...
-│
-└── 📁 examples/                      # Referências e exemplos
-    └── README.md
+```text
+├── data/               # Base de conhecimento (JSON e CSV)
+├── docs/               # Documentação das etapas do desafio (Persona, Métricas, etc.)
+├── src/                # Código-fonte modularizado
+│   ├── app.py          # Interface e visualização (Streamlit)
+│   ├── agente.py       # Cérebro do Bill (Prompt Engineering e Lógica)
+│   └── config.py       # Configurações de API e Segurança
+├── .env                # Variáveis de ambiente (Chave de API)
+├── .gitignore          # Proteção de arquivos e caches
+└── requirements.txt    # Dependências do projeto
 ```
 
+<br>
+
+## 🚀 Como Executar
+
+### 1. Preparação do Ambiente
+Certifique-se de ter o Python 3.10 ou superior instalado. Clone este repositório:
+```bash
+git clone https://github.com/MarcosWinther/dio-lab-bia-do-futuro/
+cd dio-lab-bia-do-futuro
+```
+
+### 2. Instale as Dependências
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Configuração da API Key
+Crie um arquivo ``.env`` na raiz do projeto e insira sua chave do [Google AI Studio](https://aistudio.google.com/api-keys):
+```
+GOOGLE_API_KEY=sua_chave_aqui
+```
+
+### 4. Execução
+```bash
+streamlit run src/app.py
+```
+
+<br>
+
+## 🧠 Inteligência e Segurança
+
+O Bill foi configurado com estratégias avançadas de Anti-Alucinação:
+
+* **Context Injection:** O agente só toma decisões baseadas nos dados injetados via System Prompt.
+* **Filtro de Escopo:** O "Sherlock" ignora perguntas não financeiras, mantendo o foco na mentoria.
+* **Segurança de Dados:** Uso de variáveis de ambiente para evitar a exposição de chaves sensíveis em repositórios públicos.
+
+<br>
+
+## 👨‍💻 Expert
+
+<p>
+    <img 
+      align=left 
+      margin=10 
+      width=80 
+      src="https://avatars.githubusercontent.com/u/44624583?v=4"
+    />
+    <p>&nbsp&nbsp&nbspMarcos Winther<br>
+    &nbsp&nbsp&nbsp
+    <a href="https://github.com/MarcosWinther">
+    GitHub</a>&nbsp;|&nbsp;
+    <a href="https://www.linkedin.com/in/marcoswinthersilva/">LinkedIn</a>
+    </p>
+</p>
+<br/><br/>
+
 ---
 
-## Dicas Finais
+⌨️ com 💜 por [Marcos Winther](https://github.com/MarcosWinther)
 
-1. **Comece pelo prompt:** Um bom system prompt é a base de um agente eficaz
-2. **Use os dados mockados:** Eles garantem consistência e evitam problemas com dados sensíveis
-3. **Foque na segurança:** No setor financeiro, evitar alucinações é crítico
-4. **Teste cenários reais:** Simule perguntas que um cliente faria de verdade
-5. **Seja direto no pitch:** 3 minutos passam rápido, vá ao ponto
