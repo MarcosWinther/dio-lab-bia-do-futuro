@@ -29,8 +29,6 @@ Este repositório é o resultado do projeto prático desenvolvido para o curso:
 * **Plataforma:** [DIO (Digital Innovation One)](https://www.dio.me/)
 * **Bootcamp Bradesco - GenAI & Dados**
 
-O desafio proposto pelo instrutor foi explorar as capacidades do **Google NotebookLM** para organizar conhecimentos complexos e gerar insights a partir de fontes diversas.
-
 <br>
 
 ## 🛠️ Ferramentas e Tecnologias
